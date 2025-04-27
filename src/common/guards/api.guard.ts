@@ -5,7 +5,7 @@ import { ERROR_MESSAGES } from '../constants/error-messages.constants';
 
 @Injectable()
 export class ApiGuard implements CanActivate {
-  constructor(private readonly configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) { }
 
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();

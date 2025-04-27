@@ -7,4 +7,4 @@ import { GoogleDocumentAIProvider } from './providers/documentai.provider';
   controllers: [ReceiptController],
   providers: [ReceiptService, GoogleDocumentAIProvider]
 })
-export class ReceiptModule {}
+export class ReceiptModule { }

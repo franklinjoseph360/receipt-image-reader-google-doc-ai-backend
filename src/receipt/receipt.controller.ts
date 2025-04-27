@@ -6,18 +6,17 @@ import { ApiGuard } from 'src/common/guards/api.guard';
 import { ReceiptResponseDto } from './dto/receipt-response.dto';
 import { Throttle } from '@nestjs/throttler';
 
-
 @Controller('receipt')
 export class ReceiptController {
-  constructor(private readonly receiptService: ReceiptService) {}
+    constructor(private readonly receiptService: ReceiptService) { }
 
-  @Post('upload')
-  @Version('1')
-  @UseGuards(ApiGuard)
-  @UseInterceptors(FileInterceptor('receipt-file'))
-  @UsePipes(FileValidationPipe)
-  @Throttle({ default: { limit: 5, ttl: 60000 } })
-  async uploadReceipt(@UploadedFile() file: Express.Multer.File): Promise<ReceiptResponseDto> {
-    return this.receiptService.processReceipt(file);
-  }  
+    @Post('upload')
+    @Version('1')
+    @UseGuards(ApiGuard)
+    @UseInterceptors(FileInterceptor('receipt'))
+    @UsePipes(FileValidationPipe)
+    @Throttle({ default: { limit: 5, ttl: 60000 } })
+    async uploadReceipt(@UploadedFile() file: Express.Multer.File): Promise<ReceiptResponseDto> {
+        return this.receiptService.processReceipt(file);
+    }
 }

@@ -9,5 +9,4 @@ export class ReceiptResponseDto {
     purchase_order?: string;
     invoice_type?: string;
     line_item?: string;
-  }
-  
+}
