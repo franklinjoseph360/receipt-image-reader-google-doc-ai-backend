@@ -1,20 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { DocumentProcessorServiceClient } from '@google-cloud/documentai';
 import { ConfigService } from '@nestjs/config';
 import { google } from '@google-cloud/documentai/build/protos/protos';
 
 @Injectable()
 export class ReceiptService {
-  private readonly client: DocumentProcessorServiceClient;
   private readonly projectId: string;
   private readonly location: string;
   private readonly processorId: string;
 
-  constructor(private readonly configService: ConfigService) {
-    this.client = new DocumentProcessorServiceClient({
-      keyFilename: this.configService.get<string>('GOOGLE_APPLICATION_CREDENTIALS'),
-    });
-
+  constructor(
+    @Inject('GOOGLE_DOCUMENT_AI_CLIENT') private readonly client: DocumentProcessorServiceClient,
+    private readonly configService: ConfigService) {
     this.projectId = this.configService.get<string>('PROJECT_ID');
     this.location = this.configService.get<string>('LOCATION');
     this.processorId = this.configService.get<string>('PROCESSOR_ID');
