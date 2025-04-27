@@ -9,7 +9,6 @@ export class ReceiptController {
   @Post('upload')
   @UseInterceptors(FileInterceptor('receipt-file'))
   async uploadReceipt(@UploadedFile() file: Express.Multer.File) {
-    console.log('receipt-file', file)
-    return file;
-  }
+    return this.receiptService.processReceipt(file);
+  }  
 }
