@@ -7,5 +7,6 @@ export const ERROR_MESSAGES = {
     INVALID_FILE_TYPE: `Invalid file type. Allowed types are: ${ALLOWED_MIME_TYPES.join(', ')}`,
     FILE_TOO_LARGE: `File too large. Maximum allowed limit ${MAX_FILE_SIZE_MB} MB`,
     FAILED_TO_PROCESS_RECEIPT: 'Failed to process receipt',
-    INTERNAL_SERVER_ERROR: 'Internal Server Error'
+    INTERNAL_SERVER_ERROR: 'Internal Server Error',
+    MISSING_CREDENTIALS: 'Missing GOOGLE_CLIENT_EMAIL or GOOGLE_PRIVATE_KEY in environment variables.'
 };
