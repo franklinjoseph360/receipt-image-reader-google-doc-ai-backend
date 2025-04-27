@@ -3,6 +3,7 @@ import { DocumentProcessorServiceClient } from '@google-cloud/documentai';
 import { ConfigService } from '@nestjs/config';
 import { google } from '@google-cloud/documentai/build/protos/protos';
 import { DOCUMENT_AI_CONFIG } from 'src/common/constants/document-ai.constants';
+import { ReceiptResponseDto } from './dto/receipt-response.dto';
 
 @Injectable()
 export class ReceiptService {
@@ -44,7 +45,7 @@ export class ReceiptService {
     }
   }
 
-  private readDocument(document: google.cloud.documentai.v1.IDocument): Record<string, any> {
+  private readDocument(document: google.cloud.documentai.v1.IDocument): ReceiptResponseDto {
     const fields: Record<string, any> = {};
 
     if (document.entities) {
