@@ -1,13 +1,13 @@
 import { DocumentProcessorServiceClient } from '@google-cloud/documentai';
 import { ConfigService } from '@nestjs/config';
 import { Provider } from '@nestjs/common';
-import documentaiConfig from 'src/config/documentai.config';
+import { DOCUMENT_AI_CONFIG } from 'src/config/documentai.config';
 
 export const GoogleDocumentAIProvider: Provider = {
-  provide: documentaiConfig.DOCUMENT_AI_PROVIDER as string,
+  provide: DOCUMENT_AI_CONFIG.DOCUMENT_AI_PROVIDER as string,
   useFactory: (configService: ConfigService) => {
     return new DocumentProcessorServiceClient({
-      keyFilename: configService.get<string>(documentaiConfig.APPLICATION_CREDENTIALS as string),
+      keyFilename: configService.get<string>(DOCUMENT_AI_CONFIG.APPLICATION_CREDENTIALS as string),
     });
   },
   inject: [ConfigService],
