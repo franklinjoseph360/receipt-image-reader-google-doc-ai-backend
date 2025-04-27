@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import { DOCUMENT_AI_CONFIG } from 'src/common/constants/document-ai.constants';
 import { DocumentProcessorServiceClient } from '@google-cloud/documentai';
 import { google } from '@google-cloud/documentai/build/protos/protos';
+import { ERROR_MESSAGES } from 'src/common/constants/error-messages.constants';
 
 describe('ReceiptService', () => {
   let service: ReceiptService;
@@ -52,7 +53,7 @@ describe('ReceiptService', () => {
         buffer: Buffer.from('dummy-content'),
         mimetype: 'image/jpeg',
       } as any),
-    ).rejects.toThrow('Failed to process receipt');
+    ).rejects.toThrow(ERROR_MESSAGES.FAILED_TO_PROCESS_RECEIPT);
   });
 
   it('should successfully parse receipt fields', async () => {

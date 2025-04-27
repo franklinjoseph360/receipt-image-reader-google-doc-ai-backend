@@ -1,5 +1,6 @@
 import { Injectable, PipeTransform, BadRequestException } from '@nestjs/common';
-import { ALLOWED_MIME_TYPES, MAX_FILE_SIZE_BYTES } from 'src/common/constants/file-upload.constants';
+import { ALLOWED_MIME_TYPES, MAX_FILE_SIZE_BYTES } from 'src/config/file-upload.config';
+import { ERROR_MESSAGES } from '../constants/error-messages.constants';
 
 @Injectable()
 export class FileValidationPipe implements PipeTransform {
@@ -10,16 +11,12 @@ export class FileValidationPipe implements PipeTransform {
 
     // Check MIME type
     if (!ALLOWED_MIME_TYPES.includes(file.mimetype)) {
-      throw new BadRequestException(
-        `Invalid file type. Allowed types: ${ALLOWED_MIME_TYPES.join(', ')}`,
-      );
+      throw new BadRequestException(ERROR_MESSAGES.INVALID_FILE_TYPE);
     }
 
     // Check file size
     if (file.size > MAX_FILE_SIZE_BYTES) {
-      throw new BadRequestException(
-        `File size exceeds the maximum allowed size of ${MAX_FILE_SIZE_BYTES / (1024 * 1024)}MB.`,
-      );
+      throw new BadRequestException(ERROR_MESSAGES.FILE_TOO_LARGE);
     }
 
     return file;
