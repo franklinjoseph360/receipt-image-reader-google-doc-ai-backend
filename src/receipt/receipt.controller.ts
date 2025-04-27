@@ -1,4 +1,4 @@
-import { Controller, Post, UploadedFile, UseInterceptors, UsePipes, UseGuards } from '@nestjs/common';
+import { Controller, Post, UploadedFile, UseInterceptors, UsePipes, UseGuards, Version } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ReceiptService } from './receipt.service';
 import { FileValidationPipe } from 'src/common/pipes/file-validation.pipe';
@@ -12,6 +12,7 @@ export class ReceiptController {
   constructor(private readonly receiptService: ReceiptService) {}
 
   @Post('upload')
+  @Version('1')
   @UseGuards(ApiGuard)
   @UseInterceptors(FileInterceptor('receipt-file'))
   @UsePipes(FileValidationPipe)
