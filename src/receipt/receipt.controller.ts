@@ -6,6 +6,8 @@ import { ApiGuard } from 'src/common/guards/api.guard';
 import { ReceiptResponseDto } from './dto/receipt-response.dto';
 import { Throttle } from '@nestjs/throttler';
 import { RATE_LIMITTER } from 'src/config/rate-limitter.config';
+import { ApiConsumes, ApiSecurity, ApiBody, ApiOperation } from '@nestjs/swagger';
+
 
 @Controller('receipt')
 export class ReceiptController {
@@ -17,6 +19,22 @@ export class ReceiptController {
     @UseInterceptors(FileInterceptor('receipt'))
     @UsePipes(FileValidationPipe)
     @Throttle({ default: RATE_LIMITTER.upload })
+    @ApiOperation({ summary: 'Upload a receipt file to extract structured receipt data' })
+    @ApiSecurity('x-api-key')
+    @ApiConsumes('multipart/form-data')
+    @ApiBody({
+        description: 'Receipt file upload',
+        schema: {
+            type: 'object',
+            properties: {
+                receipt: {
+                    type: 'string',
+                    format: 'binary',
+                },
+            },
+            required: ['receipt'],
+        },
+    })
     async uploadReceipt(@UploadedFile() file: Express.Multer.File): Promise<ReceiptResponseDto> {
         return this.receiptService.processReceipt(file);
     }
