@@ -5,6 +5,7 @@ import { FileValidationPipe } from 'src/common/pipes/file-validation.pipe';
 import { ApiGuard } from 'src/common/guards/api.guard';
 import { ReceiptResponseDto } from './dto/receipt-response.dto';
 import { Throttle } from '@nestjs/throttler';
+import { RATE_LIMITTER } from 'src/config/rate-limitter.config';
 
 @Controller('receipt')
 export class ReceiptController {
@@ -15,7 +16,7 @@ export class ReceiptController {
     @UseGuards(ApiGuard)
     @UseInterceptors(FileInterceptor('receipt'))
     @UsePipes(FileValidationPipe)
-    @Throttle({ default: { limit: 5, ttl: 60000 } })
+    @Throttle({ default: RATE_LIMITTER.upload })
     async uploadReceipt(@UploadedFile() file: Express.Multer.File): Promise<ReceiptResponseDto> {
         return this.receiptService.processReceipt(file);
     }
