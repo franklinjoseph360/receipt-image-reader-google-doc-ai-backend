@@ -1,5 +1,13 @@
 # Engineering Assessment Backend (NestJS)
 
+## Project Overview
+
+This project is a backend service built with NestJS that processes uploaded receipt images using Google Cloud Document AI and extracts structured receipt data.
+
+Swagger documentation is also available for easier API exploration and testing.
+
+---
+
 ## Project Initialization
 
 1. Clone this repository locally
@@ -9,31 +17,100 @@
 3. Set your node environment
 
    - Run `nvm install && nvm use`, or
-
    - Alternatively manually set your node to v18+ and npm to v10+
 
 4. Run `npm install` to install dependencies
 
-   Note: Ensure you have properly set your node version before this step
+   _Note: Ensure you have properly set your node version before this step._
 
-5. Run `npm run start:dev` or `npm run start:debug` to spin-up the backend
+5. Set up your environment variables:
 
-   Your backend server should be running on `localhost:3000`, unless a different port is defined in `process.env.PORT`.
+### .env File Setup
 
-   You can check that the server is running correctly by trying the base endpoint `GET http://localhost:3000`, which should return the text "Hello World!"
+   - Rename `.env.sample` to `.env` at the root of the project.
+   - Make sure to replace the sample values with actual values of the Document AI project and the connected service account.
+
+6. Start the backend server:
+
+```bash
+npm run start:dev
+```
+
+The backend server should now be running at:
+
+```bash
+http://localhost:3000
+```
+
+You can verify it is running by visiting:
+
+```bash
+GET http://localhost:3000/
+```
+
+Which should return:
+
+```text
+Hello World!
+```
+
+---
+
+## Swagger API Documentation
+
+An interactive API documentation is available at:
+
+```bash
+http://localhost:3000/api-docs
+```
+
+Using Swagger UI, you can:
+
+- Authorize using `x-api-key` header
+- Upload receipt files directly
+- See request/response formats
+- Test the API without external tools
+
+---
 
 ## Project Work
 
-1. Complete all of your work in the working branch that you created above
+1. Complete all of your work in the working branch you created above.
 
-2. Push commits to your remote working branch as often as you need
+2. Push commits to your remote working branch as often as you need.
+
+3. Ensure you run tests locally before finalizing:
+
+```bash
+npm run test
+```
+
+---
 
 ## Project Submission
 
 When you are ready to submit your work:
 
-1. Create a PR into `main` branch
+1. Create a Pull Request (PR) into the `main` branch.
 
-2. Merge the above PR
+2. Merge the above PR.
 
-**⚠️ IMPORTANT: The above action is a one-time submission event. Do not open a PR until you are ready to submit your project.**
+**⚠️ IMPORTANT: The above action is a one-time submission event. Do not open a PR until you are fully ready to submit your project.**
+
+---
+
+## Notes
+
+- Rate limiting is enabled to prevent abuse.
+- Uploaded files are validated for MIME type and size limits.
+- API endpoints are protected by an `x-api-key` header validation.
+
+---
+
+## Technologies Used
+
+- NestJS (v10+)
+- TypeScript
+- @google-cloud/documentai
+- Jest (Unit Testing)
+- Swagger (API Documentation)
