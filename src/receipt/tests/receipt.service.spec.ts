@@ -5,10 +5,12 @@ import { DOCUMENT_AI_CONFIG } from 'src/common/constants/document-ai.constants';
 import { DocumentProcessorServiceClient } from '@google-cloud/documentai';
 import { google } from '@google-cloud/documentai/build/protos/protos';
 import { ERROR_MESSAGES } from 'src/common/constants/error-messages.constants';
+import { DocumentAIHelperService } from 'src/common/helpers/document-ai.helper';
 
 describe('ReceiptService', () => {
   let service: ReceiptService;
   let clientMock: Partial<DocumentProcessorServiceClient>;
+  let documentHelperMock: DocumentAIHelperService;
 
   beforeEach(async () => {
     clientMock = {
@@ -21,6 +23,12 @@ describe('ReceiptService', () => {
         {
           provide: DOCUMENT_AI_CONFIG.DOCUMENT_AI_PROVIDER,
           useValue: clientMock,
+        },
+        {
+          provide: DocumentAIHelperService,
+          useValue: {
+            extractReceiptFields: jest.fn(),
+          },
         },
         {
           provide: ConfigService,
@@ -39,6 +47,7 @@ describe('ReceiptService', () => {
     }).compile();
 
     service = module.get<ReceiptService>(ReceiptService);
+    documentHelperMock = module.get<DocumentAIHelperService>(DocumentAIHelperService);
   });
 
   it('should be defined', () => {
@@ -69,15 +78,23 @@ describe('ReceiptService', () => {
       { document: mockDocument },
     ]);
 
+    (documentHelperMock.extractReceiptFields as jest.Mock).mockReturnValue({
+      supplierName: 'Hanks Hankies',
+      totalAmount: '122.17',
+      invoiceDate: 'Apr 1, 2025',
+    });
+
     const result = await service.processReceipt({
       buffer: Buffer.from('dummy-content'),
       mimetype: 'image/jpeg',
     } as any);
 
     expect(result).toEqual({
-      supplier_name: 'Hanks Hankies',
-      total_amount: '122.17',
-      invoice_date: 'Apr 1, 2025',
+      supplierName: 'Hanks Hankies',
+      totalAmount: '122.17',
+      invoiceDate: 'Apr 1, 2025',
     });
+
+    expect(documentHelperMock.extractReceiptFields).toHaveBeenCalledWith(mockDocument);
   });
 });
