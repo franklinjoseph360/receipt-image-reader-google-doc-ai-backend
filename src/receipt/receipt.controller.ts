@@ -2,7 +2,7 @@ import { Controller, Post, UploadedFile, UseInterceptors, UsePipes, UseGuards } 
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ReceiptService } from './receipt.service';
 import { FileValidationPipe } from 'src/common/pipes/file-validation.pipe';
-import { ApiGuard } from 'src/common/guard/api.guard';
+import { ApiGuard } from 'src/common/guards/api.guard';
 import { ReceiptResponseDto } from './dto/receipt-response.dto';
 
 
