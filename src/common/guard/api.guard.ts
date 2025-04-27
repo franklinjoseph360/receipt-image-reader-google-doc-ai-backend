@@ -13,7 +13,7 @@ export class ApiGuard implements CanActivate {
     const validApiKey = this.configService.get<string>(API_CONFIG.API_ENV_KEY);
 
     if (!apiKeyFromHeader || apiKeyFromHeader !== validApiKey) {
-      throw new UnauthorizedException('Invalid or missing API key.');
+      throw new UnauthorizedException(`Invalid or missing ${API_CONFIG.API_HEADER_KEY} header`);
     }
 
     return true;
