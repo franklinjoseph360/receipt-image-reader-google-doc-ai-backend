@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DocumentProcessorServiceClient } from '@google-cloud/documentai';
 import { ConfigService } from '@nestjs/config';
 import { google } from '@google-cloud/documentai/build/protos/protos';
+import documentaiConfig from 'src/config/documentai.config';
 
 @Injectable()
 export class ReceiptService {
@@ -10,11 +11,11 @@ export class ReceiptService {
   private readonly processorId: string;
 
   constructor(
-    @Inject('GOOGLE_DOCUMENT_AI_CLIENT') private readonly client: DocumentProcessorServiceClient,
+    @Inject(documentaiConfig.DOCUMENT_AI_PROVIDER) private readonly client: DocumentProcessorServiceClient,
     private readonly configService: ConfigService) {
-    this.projectId = this.configService.get<string>('PROJECT_ID');
-    this.location = this.configService.get<string>('LOCATION');
-    this.processorId = this.configService.get<string>('PROCESSOR_ID');
+    this.projectId = this.configService.get<string>(documentaiConfig.PROJECT_ID);
+    this.location = this.configService.get<string>(documentaiConfig.LOCATION);
+    this.processorId = this.configService.get<string>(documentaiConfig.PROCESSOR_ID);
   }
 
   async processReceipt(file: Express.Multer.File) {
