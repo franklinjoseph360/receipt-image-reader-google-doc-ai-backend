@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ReceiptService } from 'src/receipt/receipt.service';
 import { ConfigService } from '@nestjs/config';
-import { DOCUMENT_AI_CONFIG } from 'src/config/documentai.config';
+import { DOCUMENT_AI_CONFIG } from 'src/common/constants/document-ai.constants';
 import { DocumentProcessorServiceClient } from '@google-cloud/documentai';
 
 describe('ReceiptService', () => {

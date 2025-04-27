@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DocumentProcessorServiceClient } from '@google-cloud/documentai';
 import { ConfigService } from '@nestjs/config';
 import { google } from '@google-cloud/documentai/build/protos/protos';
-import { DOCUMENT_AI_CONFIG } from 'src/config/documentai.config';
+import { DOCUMENT_AI_CONFIG } from 'src/common/constants/document-ai.constants';
 
 @Injectable()
 export class ReceiptService {

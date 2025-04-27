@@ -1,0 +1,7 @@
+export const DOCUMENT_AI_CONFIG = {
+    DOCUMENT_AI_PROVIDER: 'GOOGLE_DOCUMENT_AI_PROVIDER',
+    APPLICATION_CREDENTIALS: 'GOOGLE_APPLICATION_CREDENTIALS', // as per .env
+    PROJECT_ID: 'PROJECT_ID', // as per .env
+    LOCATION: 'LOCATION', // as per .env
+    PROCESSOR_ID: 'PROCESSOR_ID' // as per .env
+} as const;

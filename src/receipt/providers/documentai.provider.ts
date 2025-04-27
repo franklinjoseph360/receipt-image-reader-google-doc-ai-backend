@@ -1,7 +1,7 @@
 import { DocumentProcessorServiceClient } from '@google-cloud/documentai';
 import { ConfigService } from '@nestjs/config';
 import { Provider } from '@nestjs/common';
-import { DOCUMENT_AI_CONFIG } from 'src/config/documentai.config';
+import { DOCUMENT_AI_CONFIG } from 'src/common/constants/document-ai.constants';
 
 export const GoogleDocumentAIProvider: Provider = {
   provide: DOCUMENT_AI_CONFIG.DOCUMENT_AI_PROVIDER as string,
