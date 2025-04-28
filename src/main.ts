@@ -11,6 +11,13 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
   app.useGlobalInterceptors(new LoggerInterceptor());
 
+  app.enableCors({
+    origin: '*', // For dev/demo purposes only.
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type,Authorization,x-api-key',
+    credentials: true,
+  });
+
   app.enableVersioning({
     type: VersioningType.URI,
   });
