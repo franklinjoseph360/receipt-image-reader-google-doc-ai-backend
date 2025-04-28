@@ -29,6 +29,7 @@ Swagger documentation is also available for easier API exploration and testing.
 
    - Rename `.env.sample` to `.env` at the root of the project.
    - Make sure to replace the sample values with actual values of the Document AI project and the connected service account.
+   - The actual .env file is emailed seperately as a downloadable link (Dropbox)
 
 6. Start the backend server:
 
