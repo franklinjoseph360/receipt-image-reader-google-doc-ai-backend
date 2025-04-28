@@ -99,6 +99,13 @@ When you are ready to submit your work:
 
 ---
 
+# Project Documentation
+
+## Available Documents
+
+- [API Documentation](./docs/api.md)
+- [System Architecture](./docs/architecture.md)
+
 ## Notes
 
 - Rate limiting is enabled to prevent abuse.
